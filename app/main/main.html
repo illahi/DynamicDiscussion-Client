@@ -1,0 +1,62 @@
+<div id="new-thread">
+	<div id="new-thread-form">
+		<h2>New Thread</h2>
+		<form ng-submit="newThread()" name="threadForm">
+			<div id="new-thread-form-errors">
+				<span class="error" ng-show="threadForm.title.$error.required">
+					Required!
+				</span>
+				<span class="error" ng-show="threadForm.title.$error.minlength">
+					Too short!
+				</span>
+				<span class="error" ng-show="threadForm.title.$error.maxlength">
+					Too long!
+				</span>
+			</div>
+			<div>
+				<input type="text" name="title" placeholder="Title" style="width:200px;"
+				ng-model="newTitle" ng-minlength="3" ng-maxlength="30" required/>
+				<br>
+			</div>
+			<div>
+				<textarea type="text" placeholder="Message" style="width:200px;"
+				ng-model="newMessage"/>
+				<br>
+			</div>
+			<div>
+				<input type="submit" value="Submit" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="threads">
+	<div id="{{ thread._id }}" class="thread {{ thread.status }}" ng-repeat="thread in threads">
+		<div class="thread-header">
+			<div class="left-in-three">
+				<p>{{ thread.username }}</p>
+			</div>
+			<div class="center-in-three">
+				<p>{{ thread.title }}</p>
+			</div>
+			<div class="right-in-three">
+				<p>{{ thread.date }}</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="thread-neck">
+			<div class="left-in-three">
+				<p>{{ thread.message }}</p>
+			</div>
+			<div class="center-in-three">
+				<p ng-click="requestThread(thread._id)">{{ thread.expand_v }}</p>
+			</div>
+			<div class="right-in-three" ng-click="reply(thread._id)">
+				<p>reply</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="replies" ng-show="thread.expand">
+		</div>
+	</div>
+</div>
